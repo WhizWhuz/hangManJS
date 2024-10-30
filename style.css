@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    background: radial-gradient(circle, rgba(145,179,240,1) 6%, rgba(100,149,237,1) 49%, rgba(100,149,237,1) 99%);
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr)
+}
+
+#guessedletters { 
+    font-size: 4em;
+    justify-self: center;
+    margin: auto;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    grid-row: 10;
+    grid-column: 4 / 10;
+    letter-spacing: 0.2em;
+
+}
+
+.guessedh1 {
+    font-size: 2.5em;
+    position: absolute;
+    text-shadow: 1px 2px 2px black;
+}
+
+
+.fieldinput {
+    align-self: flex-end;
+    align-content: center;
+    margin: 0 auto;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 3em;
+    grid-row: 12;
+    grid-column: 7;
+    border: none;
+}
+
+
+#submitletter {
+    height: 5em;
+    width: 5em;
+    border-radius: 100%;
+    background-color: lightgreen;
+    border: none;
+    margin: 1em;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 1.5em;
+    padding-block: 0;
+    padding-inline: 0;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 5px black;
+}
+
+#textfield {
+    width: 5em;
+    height: 3em;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: rgb(157, 183, 230);
+    font-size: 1.5em;
+    padding: 0;    
+    padding-block: 0;
+    padding-inline: 0;
+    border: none;
+    border: 1px solid black;
+}
+
+#textfield:active {
+    border: none;
+}
+
+#textfield:focus {  
+    border: none;
+    border: solid lightgreen;
+    background-color: white;
+}
+
+svg {
+    position: absolute;
+    right: 35vw;
+    bottom: 35vh;
+    cursor:wait;
+}  
+
+#ground ,#head, #body, #arms, #legs, #scaffold {
+    visibility: hidden;
+}
+
+
+#firstword {
+    position: absolute;
+    top: 20%; 
+    left: 15%; 
+    font-size: 4em;
+    color: red;
+}
+
+#secondword {
+    position: absolute;
+    top: 15%; 
+    left: 70%; 
+    font-size: 3em;
+    color: rgb(255, 55, 55);
+}
+
+#thirdword {
+    position: absolute;
+    top: 30%; 
+    left: 85%; 
+    font-size: 5em;
+    color: rgb(255, 79, 79);
+}
+
+#fourthword {
+    position: absolute;
+    top: 40%; 
+    left: 10%; 
+    font-size: 7em;
+    color: rgb(255, 119, 119);
+}
+
+#fifthword {
+    position: absolute;
+    top: 50%; 
+    left: 30%; 
+    font-size: 3em;
+    color: rgb(255, 154, 154);
+}
+
+#sixthword {
+    position: absolute;
+    top: 55%; 
+    left: 80%; 
+    font-size: 6em;
+    color: rgb(255, 186, 186);
+}
+
+
+
+#confetti {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+
+
+#playagain {
+    height: 5em;
+    width: 10em;
+    border-radius: 2em;
+    background-color: lightgreen;
+    border: none;
+    margin: 1em;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 3em;
+    padding-block: 0;
+    padding-inline: 0;
+    text-transform: uppercase;
+    position: absolute;
+    left: 35vw;
+    top: 40vh;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px black;
+}
+
+.blurscreen {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(3px);
+    position: absolute;
+    z-index: 100; /* Higher value to ensure it appears on top */
+    visibility: hidden;
+}
