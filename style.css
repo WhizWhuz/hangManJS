@@ -186,7 +186,7 @@ svg {
     text-transform: uppercase;
     padding: 0;
     cursor: pointer;
-    box-shadow: 1px 1px 5px black;
+    box-shadow: 1px 5px 20px black;
     font-family: Dynapuff;
     grid-column: 5 / 9;
     grid-row: 6;
@@ -197,7 +197,7 @@ svg {
     flex-wrap: nowrap;
 }
 
-    #playagain {
+    #playagainbtn {
         height: 2em;
         width: 10em;
         border-radius: 0.5em;
@@ -211,11 +211,11 @@ svg {
         text-transform: uppercase;
     }
 
-    #playagain:hover {
+    #playagainbtn:hover {
         background-color: rgb(51, 116, 236);
     }
 
-    #playagain:active {
+    #playagainbtn:active {
         box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.7);
         background-color: rgb(40, 96, 200);
         transform: scale(0.98);

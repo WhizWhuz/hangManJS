@@ -19,7 +19,7 @@ const svgParts = [
     document.getElementById('legs')     
 ];
 
-const playAgainButton = document.getElementById('playagain');
+const playAgainButton = document.getElementById('playagainbtn');
 
 // Select Elements
 const wordSlots = [
@@ -106,7 +106,7 @@ function checkGuess() {
         blurScreen.style.visibility = 'visible';
         outcomeText.innerHTML = `You lost! <br> The word was: <b>${currentWord}</b>`;
         theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 99%)";
-        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 99%)";
+        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 100%)";
     }
 }
 
