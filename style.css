@@ -1,9 +1,13 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: Dynapuff;
 }
 
-
+@font-face {
+    font-family: Chalkboard;
+    src: url(ChalkboardByMartaVanEck-gvpp.ttf);
+}
 
 .wrapper {
     width: 100vw;
@@ -64,7 +68,20 @@ body {
     padding-inline: 0;
     text-transform: uppercase;
     box-shadow: 1px 1px 5px black;
+    font-family: Dynapuff;
 }
+
+
+#submitletter:hover {
+    background-color: rgb(60, 212, 60);
+}
+
+#submitletter:active {
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.7);
+    background-color: rgb(22, 148, 22);
+    transform: scale(0.98);
+}
+
 
 #textfield {
     width: 5em;
@@ -78,6 +95,7 @@ body {
     padding-inline: 0;
     border: none;
     border: 1px solid black;
+    font-family: Dynapuff;
 }
 
 #textfield:active {
@@ -159,34 +177,58 @@ svg {
     visibility: hidden;
 }
 
-
-
-#playagain {
-    height: 5em;
-    width: 10em;
-    border-radius: 2em;
-    background-color: lightgreen;
-    border: none;
-    margin: 1em;
-    cursor: pointer;
-    font-family: Arial;
-    font-size: 3em;
+#playagainwindow {
+    width: 35vw;
+    height: 30vh;
+    font-size: 2em;
     padding-block: 0;
     padding-inline: 0;
     text-transform: uppercase;
-    position: absolute;
-    left: 35vw;
-    top: 40vh;
     padding: 0;
     cursor: pointer;
     box-shadow: 1px 1px 5px black;
+    font-family: Dynapuff;
+    grid-column: 5 / 9;
+    grid-row: 6;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    flex-wrap: nowrap;
 }
 
-.blurscreen {
+    #playagain {
+        height: 2em;
+        width: 10em;
+        border-radius: 0.5em;
+        background-color: cornflowerblue;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: 0;
+        font-family: Dynapuff;
+        box-shadow: inset 1px 1px 10px rgb(0, 0, 0);
+        text-transform: uppercase;
+    }
+
+    #playagain:hover {
+        background-color: rgb(51, 116, 236);
+    }
+
+    #playagain:active {
+        box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.7);
+        background-color: rgb(40, 96, 200);
+        transform: scale(0.98);
+    }
+
+#blurscreen {
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(3px);
     position: absolute;
     z-index: 100; /* Higher value to ensure it appears on top */
     visibility: hidden;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr)
 }
