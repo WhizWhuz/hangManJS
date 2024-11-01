@@ -17,8 +17,6 @@ const svgParts = [
     document.getElementById('legs')     
 ];
 
-const playAgainButton = document.getElementById('playagainbtn');
-
 // Felbokstäver slots
 const wordSlots = [
     document.getElementById('firstword'),
@@ -32,16 +30,18 @@ const wordSlots = [
 // Rätt ord display
 const guessedLettersDisplay = document.getElementById('guessedletters');
 
-// Styling
+// Win / Loss Styling
 const confetti = document.getElementById('confetti');
 const inputField = document.getElementById('textfield');
-const submitButton = document.getElementById('submitletter');
-const playAgainWindow = document.getElementById('playagainwindow');
 const outcomeText = document.getElementById('outcometext');
-
-// Win / Loss screen styling
 const theBody = document.getElementById('thebody');
 const blurScreen = document.getElementById('blurscreen');
+const playAgainButton = document.getElementById('playagainbtn');
+const playAgainWindow = document.getElementById('playagainwindow');
+
+// Input och Submit
+const submitButton = document.getElementById('submitletter');
+const inputField = document.getElementById('textfield');
 
 // Spel variabler
 const maxAttempts = svgParts.length; // Max attempts lika många som det finns SVG parts
@@ -52,7 +52,7 @@ let currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
 
 // Initialize display för rätt ord och sätt understräck där bokstäverna ska vara
 function initializeDisplay() {
-    guessedLettersDisplay.textContent = "_ ".repeat(currentWord.length).trim(); // .join istället ^
+    guessedLettersDisplay.textContent = "_ ".repeat(currentWord.length).trim(); // (kan ha .join istället)
 }
 initializeDisplay();
 
@@ -70,7 +70,7 @@ function displayIncorrectGuess(letter) {
         wordSlots[attempts - 1].textContent = letter;
     }
     if (attempts - 1 < svgParts.length) {
-        svgParts[attempts - 1].style.visibility = "visible"; // Lägger till en SVG del
+        svgParts[attempts - 1].style.visibility = "visible"; // Visar en SVG del
     }
 }
 
@@ -100,18 +100,20 @@ function checkGuess() {
 
     // Win / Loss Conditions 
     if (guessedLetters.length === new Set(currentWord).size) { // Om Win
-        blurScreen.style.visibility = 'visible';
-        outcomeText.innerHTML = `<b>You won!</b> <br> The right word was:   <b>${currentWord}</b>`;
-        theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)";
-        confetti.style.visibility = 'visible';
-        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)";
+        blurScreen.style.visibility = 'visible'; // Win Screen
+        outcomeText.innerHTML = `<b>You won!</b> <br> The right word was:   <b>${currentWord}</b>`; // Win Message
+
+        theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)"; // Styla bakgrunden grön
+        confetti.style.visibility = 'visible'; // Visa confetti .gif
         setTimeout(() => confetti.style.visibility = 'hidden', 2500);
 
+        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)"; // Gör Play Again rutan grön
+
     } else if (attempts >= maxAttempts) { // Om Loss
-        blurScreen.style.visibility = 'visible';
-        outcomeText.innerHTML = `<b>You lost!</b> <br> The word was:   <b>${currentWord}</b>`;
-        theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 99%)";
-        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 100%)";
+        blurScreen.style.visibility = 'visible'; // Loss Screen
+        outcomeText.innerHTML = `<b>You lost!</b> <br> The word was:   <b>${currentWord}</b>`; // Loss Message
+        theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 99%)"; // Styla bakgrunden röd
+        playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 100%)"; // Gör Play Again rutan röd
     }
 }
 
@@ -123,19 +125,19 @@ function resetGame() {
     currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
 
     guessedLettersDisplay.textContent = "_ ".repeat(currentWord.length).trim();
-    wordSlots.forEach(slot => slot.textContent = "");
-    svgParts.forEach(part => part.style.visibility = "hidden");
+    wordSlots.forEach(slot => slot.textContent = ""); // Tömmer fel gissningarna
+    svgParts.forEach(part => part.style.visibility = "hidden"); // Döljer ALLA SVG delar
 
-    theBody.style.background = 'radial-gradient(circle, rgba(145,179,240,1) 6%, rgba(100,149,237,1) 49%, rgba(100,149,237,1) 99%)';
+    theBody.style.background = 'radial-gradient(circle, rgba(145,179,240,1) 6%, rgba(100,149,237,1) 49%, rgba(100,149,237,1) 99%)'; // Gör bakgrunden blå igen
 
-    blurScreen.style.visibility = 'hidden';
+    blurScreen.style.visibility = 'hidden'; // Dölj Win/Loss rutan
     initializeDisplay();
 }
 
 // Event Listeners
 playAgainButton.addEventListener('click', resetGame);
 submitButton.addEventListener('click', checkGuess);
-inputField.addEventListener('keydown', function(event) {
+inputField.addEventListener('keydown', function(event) { // Gissa bokstäver med Enter
     if (event.key === "Enter") {
         checkGuess();
     }
