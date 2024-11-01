@@ -1,4 +1,4 @@
-// Array of Words
+// Array med ord
 const words = [
     "tree", "book", "fish", "lion", "ship", "wolf", "star", "moon", "rock", "frog",
     "apple", "grape", "chair", "zebra", "ocean", "camel", "clock", "bread", "cloud", "piano",
@@ -6,10 +6,8 @@ const words = [
     "candle", "monster", "teacher", "library", "diamond", "rainbow", "sunrise", "picture", "painter", "justice"
 ];
 
-const theBody = document.getElementById('thebody');
-const blurScreen = document.getElementById('blurscreen');
 
-// SVG Parts Array - Define the order of hangman parts to appear
+// Hangman SVG
 const svgParts = [
     document.getElementById('ground'),
     document.getElementById('scaffold'),
@@ -21,7 +19,7 @@ const svgParts = [
 
 const playAgainButton = document.getElementById('playagainbtn');
 
-// Select Elements
+// Felbokstäver slots
 const wordSlots = [
     document.getElementById('firstword'),
     document.getElementById('secondword'),  
@@ -31,27 +29,34 @@ const wordSlots = [
     document.getElementById('sixthword'),
 ];
 
-const confetti = document.getElementById('confetti');
+// Rätt ord display
 const guessedLettersDisplay = document.getElementById('guessedletters');
+
+// Styling
+const confetti = document.getElementById('confetti');
 const inputField = document.getElementById('textfield');
 const submitButton = document.getElementById('submitletter');
 const playAgainWindow = document.getElementById('playagainwindow');
 const outcomeText = document.getElementById('outcometext');
 
-// Game Variables
-const maxAttempts = svgParts.length;
+// Win / Loss screen styling
+const theBody = document.getElementById('thebody');
+const blurScreen = document.getElementById('blurscreen');
+
+// Spel variabler
+const maxAttempts = svgParts.length; // Max attempts lika många som det finns SVG parts
 let attempts = 0;
 let guessedLetters = [];
 let incorrectGuesses = [];
-let currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
+let currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase(); // Random formula för att ta ord från Array
 
-// Initialize Word Display for Correct Letters
+// Initialize display för rätt ord och sätt understräck där bokstäverna ska vara
 function initializeDisplay() {
-    guessedLettersDisplay.textContent = "_ ".repeat(currentWord.length).trim();
+    guessedLettersDisplay.textContent = "_ ".repeat(currentWord.length).trim(); // .join istället ^
 }
 initializeDisplay();
 
-// Update Display for Correct Guesses
+// Funktion som uppdaterar för rätt ord
 function updateGuessedLettersDisplay() {
     let displayText = currentWord.split('').map(letter => 
         guessedLetters.includes(letter) ? letter : "_"
@@ -59,58 +64,58 @@ function updateGuessedLettersDisplay() {
     guessedLettersDisplay.textContent = displayText;
 }
 
-// Display Incorrect Guesses in Word Slots
+// Funktion som displayar fel gissningar
 function displayIncorrectGuess(letter) {
-    if (attempts - 1 < maxAttempts) { // Check to prevent overflow
+    if (attempts - 1 < maxAttempts) {
         wordSlots[attempts - 1].textContent = letter;
     }
     if (attempts - 1 < svgParts.length) {
-        svgParts[attempts - 1].style.visibility = "visible";
+        svgParts[attempts - 1].style.visibility = "visible"; // Lägger till en SVG del
     }
 }
 
-// Check Guess Function
+// Check Guess Function (Funktion som använder ovanstående funktioner för att kolla om gissningen var rätt)
 function checkGuess() {
     const guess = inputField.value.toUpperCase();
     inputField.value = "";
 
-    if (guess.length !== 1 || !/[A-Z]/.test(guess)) {
+    if (!/[A-Z]/.test(guess)) { // Kan bara skriva in bokstäver A-Z
         alert("Enter a valid letter.");
         return;
     }
 
-    if (guessedLetters.includes(guess) || incorrectGuesses.includes(guess)) {
+    if (guessedLetters.includes(guess) || incorrectGuesses.includes(guess)) { // Om samma bokstav
         alert("You already guessed that letter!");
         return;
     }
 
-    if (currentWord.includes(guess)) {
+    if (currentWord.includes(guess)) { // Om det är rätt bokstav
         guessedLetters.push(guess);
         updateGuessedLettersDisplay();
     } else {
-        incorrectGuesses.push(guess);   
+        incorrectGuesses.push(guess);   // Om det är fel gör increment attempts + displaya fel bokstav
         attempts++;
         displayIncorrectGuess(guess);
     }
 
-    // Check for Win/Lose Conditions
-    if (guessedLetters.length === new Set(currentWord).size) {
+    // Win / Loss Conditions 
+    if (guessedLetters.length === new Set(currentWord).size) { // Om Win
         blurScreen.style.visibility = 'visible';
-        outcomeText.innerHTML = `You won! <br> The right word was: <b>${currentWord}</b>`;
+        outcomeText.innerHTML = `<b>You won!</b> <br> The right word was:   <b>${currentWord}</b>`;
         theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)";
         confetti.style.visibility = 'visible';
         playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(100,237,125,1) 49%, rgba(165,237,100,1) 100%)";
         setTimeout(() => confetti.style.visibility = 'hidden', 2500);
 
-    } else if (attempts >= maxAttempts) {
+    } else if (attempts >= maxAttempts) { // Om Loss
         blurScreen.style.visibility = 'visible';
-        outcomeText.innerHTML = `You lost! <br> The word was: <b>${currentWord}</b>`;
+        outcomeText.innerHTML = `<b>You lost!</b> <br> The word was:   <b>${currentWord}</b>`;
         theBody.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 99%)";
         playAgainWindow.style.background = "radial-gradient(circle, rgba(203,217,255,1) 6%, rgba(219,100,237,1) 49%, rgba(237,100,100,1) 100%)";
     }
 }
 
-// Reset Game Function
+// Reset Game Funktion
 function resetGame() {
     attempts = 0;
     guessedLetters = [];
